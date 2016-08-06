@@ -23,7 +23,8 @@ struct gumball_machine_description{
     cost_per_gumball: f32,
     price_per_gumball: f32,
     number_of_gumballs_sold: i32,
-    price_of_gumball_machine: f32
+    price_of_gumball_machine: f32,
+    performance_of_gumball_machine: i32
 
 }
 
@@ -64,7 +65,6 @@ fn initialized_financial_picture () -> financial_picture_description{
 
 fn print_initial_description(financial_picture: &mut financial_picture_description)
 {
-
     println!("Gumball Business Simulator");
     println!("You have a job making {} dollars per hour", financial_picture.dollars_per_hour);
     println!("You work {} hours per week", financial_picture.hours_per_week);
@@ -99,8 +99,13 @@ fn main() {
 
     loop
     {
-        let mut entertainment_to_spend: f32 = 0.0;
-        let mut gumball_machines_to_buy: i32 = 0;
+        let mut entertainment_to_spend: f32 = financial_picture.disposable_income + 
+                                              financial_picture.current_savings + 1;
+        let max_spend = entertainment_to_spend - 1;
+        
+        let mut gumball_machines_to_buy: i32 = financial_picture.disposable_income / price_per_gumball +
+                                               financial_picture.current_savings + 1;
+        let max_gumballs = gumball_machines_to_buy - 1;
         current_age = starting_age + current_year;
 
         print_current_state(&mut financial_picture);
@@ -108,8 +113,23 @@ fn main() {
         println!("You are currently {} years old", current_age);
         println!("You have been running your gumball business for {} months",current_month);
 
-        entertainment_to_spend = how_much_to_spend_on_entertainment();
-        gumball_machines_to_buy = how_many_gumball_machines_to_buy(); 
+       
+        while entertainment_to_spend > max_spend
+        {
+
+            entertainment_to_spend = how_much_to_spend_on_entertainment();
+
+        }
+
+        while gumball_machines_to_buy > max_gumballs
+        {
+
+            gumball_machines_to_buy = how_many_gumball_machines_to_buy(); 
+        }
+
+        current_month = current_month + 1;
+        current_year = (current_month / 12);
+
 
     }
 }
@@ -126,6 +146,7 @@ fn how_much_to_spend_on_entertainment()->f32
 
         let entertainment: f32 = entertainment.trim().parse()
             .expect("Please enter dollars to spend on entertainment");
+        entertainment
 }
 
 
@@ -138,12 +159,11 @@ fn how_many_gumball_machines_to_buy()->i32
         io::stdin().read_line(&mut gumball_machines)
             .expect("Failed to read line");
 
-        let gumball_machines: f32 = gumball_machines.trim().parse()
+        let gumball_machines: i32 = gumball_machines.trim().parse()
             .expect("Please enter the number of gumball machines to buy");
-        
-        current_month = current_month + 1;
-        current_year = (current_month / 12);
 
+        gumball_machines
+        
 
 
 
