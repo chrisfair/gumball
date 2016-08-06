@@ -1,5 +1,4 @@
 use std::io;
-#[macro_use] extern crate text_io;
 
 struct financial_picture_description{
     dollars_per_hour:f32,
@@ -89,7 +88,9 @@ fn main() {
 
     let mut financial_picture = initialized_financial_picture();
     let mut current_month = 0;
+    let mut current_year = 0;
     let mut current_age = 18;
+    let starting_age:i32 = current_age; 
     let mut number_of_gumball_machines:i32 = 0;
     let mut price_of_gumball_machine:f32 = 80.0;
 
@@ -100,22 +101,51 @@ fn main() {
     {
         let mut entertainment_to_spend: f32 = 0.0;
         let mut gumball_machines_to_buy: i32 = 0;
+        current_age = starting_age + current_year;
 
         print_current_state(&mut financial_picture);
 
         println!("You are currently {} years old", current_age);
         println!("You have been running your gumball business for {} months",current_month);
 
-        print!("How much do you want to spend on entertainment this month");
-        let a:String = read!();
-        print!("How many gumball machines do you wish to buy this month?");
-        let b:String = read!(); 
-        current_month = current_month + 1;
-        current_age = (current_month / 12 - 1)  + current_age;
-
-
+        entertainment_to_spend = how_much_to_spend_on_entertainment();
+        gumball_machines_to_buy = how_many_gumball_machines_to_buy(); 
 
     }
+}
+
+
+fn how_much_to_spend_on_entertainment()->f32
+{
+        println!("How much do you want to spend on entertainment this month?");
+
+        let mut entertainment = String::new();
+        
+        io::stdin().read_line(&mut entertainment)
+            .expect("Failed to read line");
+
+        let entertainment: f32 = entertainment.trim().parse()
+            .expect("Please enter dollars to spend on entertainment");
+}
+
+
+fn how_many_gumball_machines_to_buy()->i32
+{
+
+        println!("How many gumball machines do you want to buy this month?");
+        let mut gumball_machines = String::new();
+        
+        io::stdin().read_line(&mut gumball_machines)
+            .expect("Failed to read line");
+
+        let gumball_machines: f32 = gumball_machines.trim().parse()
+            .expect("Please enter the number of gumball machines to buy");
+        
+        current_month = current_month + 1;
+        current_year = (current_month / 12);
+
+
 
 
 }
+
