@@ -61,7 +61,7 @@ fn initialzed_financial_picture () -> financial_picture_description{
     financial_picture
 }
 
-fn print_initial_description(financial_picture: financial_picture_description)
+fn print_initial_description(financial_picture: &mut financial_picture_description)
 {
 
     println!("Gumball Business Simulator");
@@ -74,29 +74,34 @@ fn print_initial_description(financial_picture: financial_picture_description)
     println!("Your water is {} per month", financial_picture.water_per_month);
 }
 
-fn print_current_state(financial_picture: financial_picture_description)
+fn print_current_state(financial_picture: &mut financial_picture_description)
 {
 
-    println!("Your disposable income is {} per month", financial_picture.disposable_income);
-    println!("Right now my savings per month is {} dollars", financial_picture.savings_per_month);
-
+    println!("Your disposable income is ${}", financial_picture.disposable_income);
+    println!("Right now your savings is ${}", financial_picture.current_savings);
 
 }
-
 
 
 fn main() {
 
     let mut financial_picture = initialzed_financial_picture();
     let mut current_month = 0;
+    let mut current_age = 18;
     let mut number_of_gumball_machines:i32 = 0;
     let mut price_of_gumball_machine:f32 = 80.0;
-    print_initial_description(financial_picture);
+
+    print_initial_description(&mut financial_picture);
 
     loop
     {
-        print_current_state(financial_picture);
-        
+
+        print_current_state(&mut financial_picture);
+
+        current_month = current_month + 1;
+        current_age = (current_month / 12 - 1)  + current_age;
+
+
 
 
     }
