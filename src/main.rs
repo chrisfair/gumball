@@ -1,3 +1,5 @@
+use std::io;
+#[macro_use] extern crate text_io;
 
 struct financial_picture_description{
     dollars_per_hour:f32,
@@ -26,7 +28,7 @@ struct gumball_machine_description{
 
 }
 
-fn initialzed_financial_picture () -> financial_picture_description{
+fn initialized_financial_picture () -> financial_picture_description{
 
     let mut financial_picture = financial_picture_description { 
         dollars_per_hour:10.0,
@@ -85,22 +87,31 @@ fn print_current_state(financial_picture: &mut financial_picture_description)
 
 fn main() {
 
-    let mut financial_picture = initialzed_financial_picture();
+    let mut financial_picture = initialized_financial_picture();
     let mut current_month = 0;
     let mut current_age = 18;
     let mut number_of_gumball_machines:i32 = 0;
     let mut price_of_gumball_machine:f32 = 80.0;
 
+
     print_initial_description(&mut financial_picture);
 
     loop
     {
+        let mut entertainment_to_spend: f32 = 0.0;
+        let mut gumball_machines_to_buy: i32 = 0;
 
         print_current_state(&mut financial_picture);
 
+        println!("You are currently {} years old", current_age);
+        println!("You have been running your gumball business for {} months",current_month);
+
+        print!("How much do you want to spend on entertainment this month");
+        let a:String = read!();
+        print!("How many gumball machines do you wish to buy this month?");
+        let b:String = read!(); 
         current_month = current_month + 1;
         current_age = (current_month / 12 - 1)  + current_age;
-
 
 
 
