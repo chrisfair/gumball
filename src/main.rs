@@ -100,12 +100,12 @@ fn main() {
     loop
     {
         let mut entertainment_to_spend: f32 = financial_picture.disposable_income + 
-                                              financial_picture.current_savings + 1;
-        let max_spend = entertainment_to_spend - 1;
+                                              financial_picture.current_savings + 1.0;
+        let max_spend = entertainment_to_spend - 1.0;
         
         let mut gumball_machines_to_buy: i32 = financial_picture.disposable_income / price_per_gumball +
-                                               financial_picture.current_savings + 1;
-        let max_gumballs = gumball_machines_to_buy - 1;
+                                               financial_picture.current_savings + 1.0;
+        let max_gumballs = gumball_machines_to_buy - 1.0;
         current_age = starting_age + current_year;
 
         print_current_state(&mut financial_picture);
@@ -148,7 +148,6 @@ fn how_much_to_spend_on_entertainment()->f32
             .expect("Please enter dollars to spend on entertainment");
         entertainment
 }
-
 
 fn how_many_gumball_machines_to_buy()->i32
 {
