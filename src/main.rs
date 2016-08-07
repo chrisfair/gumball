@@ -93,7 +93,7 @@ fn main() {
     let starting_age:i32 = current_age; 
     let mut number_of_gumball_machines:i32 = 0;
     let mut price_of_gumball_machine:f32 = 80.0;
-
+    let mut price_per_gumball:f32 = 0.03;
 
     print_initial_description(&mut financial_picture);
 
@@ -101,11 +101,11 @@ fn main() {
     {
         let mut entertainment_to_spend: f32 = financial_picture.disposable_income + 
                                               financial_picture.current_savings + 1.0;
-        let max_spend = entertainment_to_spend - 1.0;
+        let max_spend = entertainment_to_spend - 1;
         
-        let mut gumball_machines_to_buy: i32 = financial_picture.disposable_income / price_per_gumball +
-                                               financial_picture.current_savings + 1.0;
-        let max_gumballs = gumball_machines_to_buy - 1.0;
+        let mut gumball_machines_to_buy: i32 = financial_picture.disposable_income/price_of_gumball_machine  +
+                                               financial_picture.current_savings/price_of_gumball_machine + 1;
+        let max_gumballs = gumball_machines_to_buy - 1;
         current_age = starting_age + current_year;
 
         print_current_state(&mut financial_picture);
